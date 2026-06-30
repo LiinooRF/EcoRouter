@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getProfile, getDashboardData } from "@/lib/queries";
 import { EstadoBadge } from "@/components/estado-badge";
-import { clp, fecha, SEVERIDAD_VARIANT } from "@/lib/format";
+import { clp, fecha, SEVERIDAD_VARIANT, ESTADO_LABEL } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import {
   Card,
@@ -33,6 +33,26 @@ export default async function DashboardPage() {
   if (profile?.rol === "conductor") redirect("/app/conductor");
 
   const { despachos, alertas, kpis } = await getDashboardData();
+
+  const ESTADOS: EstadoDespacho[] = [
+    "en_preparacion",
+    "en_transito",
+    "en_aduana",
+    "retrasado",
+    "entregado",
+  ];
+  const barColor: Record<EstadoDespacho, string> = {
+    en_preparacion: "bg-slate-400",
+    en_transito: "bg-blue-500",
+    en_aduana: "bg-amber-500",
+    retrasado: "bg-red-500",
+    entregado: "bg-emerald-500",
+  };
+  const porEstado = ESTADOS.map((e) => ({
+    estado: e,
+    n: despachos.filter((d) => d.estado === e).length,
+  }));
+  const maxN = Math.max(1, ...porEstado.map((p) => p.n));
 
   const stats = [
     {
@@ -167,6 +187,30 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Despachos por estado */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Despachos por estado</CardTitle>
+          <CardDescription>Distribución actual de la operación</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {porEstado.map((p) => (
+            <div key={p.estado}>
+              <div className="mb-1 flex justify-between text-sm">
+                <span>{ESTADO_LABEL[p.estado]}</span>
+                <span className="font-mono text-muted-foreground">{p.n}</span>
+              </div>
+              <div className="h-2.5 w-full overflow-hidden rounded-full bg-muted">
+                <div
+                  className={cn("h-2.5 rounded-full transition-all", barColor[p.estado])}
+                  style={{ width: `${(p.n / maxN) * 100}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
 
       {/* Nota de mejora */}
       <Card className="border-orange-200 bg-orange-50/50">

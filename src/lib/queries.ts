@@ -275,3 +275,69 @@ export async function getReportes() {
     zonas,
   };
 }
+
+/** Flota: camiones y conductores (con su camión asignado). */
+export async function getFlota() {
+  const supabase = await createClient();
+  const [camiones, conductores] = await Promise.all([
+    supabase.from("camiones").select("*").order("patente"),
+    supabase.from("conductores").select("*, camiones(patente)").order("nombre"),
+  ]);
+  return {
+    camiones: (camiones.data ?? []) as Camion[],
+    conductores: (conductores.data ?? []) as unknown as Array<
+      Conductor & { camiones: { patente: string } | null }
+    >,
+  };
+}
+
+export type BitacoraRow = {
+  id: number;
+  usuario: string | null;
+  accion: string;
+  entidad: string | null;
+  detalle: string | null;
+  created_at: string;
+};
+
+/** Bitácora de acciones (RNF-10 trazabilidad). */
+export async function getBitacora(): Promise<BitacoraRow[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("bitacora")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(100);
+  return (data ?? []) as BitacoraRow[];
+}
+
+export type DespachoDetalle = {
+  id: number;
+  numero_guia: string;
+  cliente_nombre: string | null;
+  estado: string;
+  tipo_carga: string;
+  fecha_creacion: string;
+  fecha_estimada: string | null;
+  fecha_entrega: string | null;
+  rutas: { origen: string; destino: string; distancia_km: number } | null;
+  conductores: { nombre: string; licencia: string } | null;
+  camiones: { patente: string; modelo: string | null } | null;
+  viaticos: { combustible: number; peajes: number; monto_total: number } | null;
+  alertas: { id: number; titulo: string; severidad: string; fecha_hora: string }[];
+};
+
+/** Ficha completa de un despacho. */
+export async function getDespachoDetalle(
+  id: number,
+): Promise<DespachoDetalle | null> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("despachos")
+    .select(
+      "id,numero_guia,cliente_nombre,estado,tipo_carga,fecha_creacion,fecha_estimada,fecha_entrega,rutas(origen,destino,distancia_km),conductores(nombre,licencia),camiones(patente,modelo),viaticos(combustible,peajes,monto_total),alertas(id,titulo,severidad,fecha_hora)",
+    )
+    .eq("id", id)
+    .maybeSingle();
+  return data as unknown as DespachoDetalle | null;
+}

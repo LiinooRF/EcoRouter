@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getDespachos } from "@/lib/queries";
 import { EstadoBadge } from "@/components/estado-badge";
 import { clp, fecha } from "@/lib/format";
@@ -52,7 +53,11 @@ export default async function DespachosPage() {
               <TableBody>
                 {despachos.map((d) => (
                   <TableRow key={d.id}>
-                    <TableCell className="font-semibold">{d.numero_guia}</TableCell>
+                    <TableCell className="font-semibold">
+                      <Link href={`/app/despachos/${d.id}`} className="text-orange-700 hover:underline">
+                        {d.numero_guia}
+                      </Link>
+                    </TableCell>
                     <TableCell className="text-muted-foreground">
                       {d.cliente_nombre ?? "—"}
                     </TableCell>
