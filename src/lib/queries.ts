@@ -178,3 +178,78 @@ export async function getDespachos() {
     viaticos: { monto_total: number } | null;
   })[];
 }
+
+/** Todas las alertas (RF-07 / RF-08), priorizadas por severidad. */
+export async function getAlertas() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("alertas")
+    .select("*, rutas(origen,destino), despachos(numero_guia)")
+    .order("fecha_hora", { ascending: false });
+  const orden: Record<string, number> = { critica: 0, media: 1, info: 2 };
+  return (data ?? []).sort(
+    (a, b) => (orden[a.severidad] ?? 9) - (orden[b.severidad] ?? 9),
+  ) as unknown as Array<{
+    id: number;
+    tipo: string;
+    severidad: string;
+    titulo: string;
+    descripcion: string | null;
+    activa: boolean;
+    fecha_hora: string;
+    rutas: { origen: string; destino: string } | null;
+    despachos: { numero_guia: string } | null;
+  }>;
+}
+
+/** Métricas de desempeño logístico (RF-10). */
+export async function getReportes() {
+  const supabase = await createClient();
+  const [despachos, viaticos, camiones] = await Promise.all([
+    supabase.from("despachos").select("estado, rutas(destino)"),
+    supabase.from("viaticos").select("monto_total"),
+    supabase.from("camiones").select("estado_operativo"),
+  ]);
+
+  const d = (despachos.data ?? []) as unknown as Array<{
+    estado: string;
+    rutas: { destino: string } | null;
+  }>;
+  const total = d.length;
+  const entregados = d.filter((x) => x.estado === "entregado").length;
+  const retrasados = d.filter((x) => x.estado === "retrasado").length;
+  const aTiempo = total ? Math.round((entregados / total) * 100) : 0;
+  const totalViaticos = (viaticos.data ?? []).reduce(
+    (a, v) => a + Number(v.monto_total ?? 0),
+    0,
+  );
+  const cam = camiones.data ?? [];
+  const usoFlota = cam.length
+    ? Math.round(
+        (cam.filter((c) => c.estado_operativo === "activo").length /
+          cam.length) *
+          100,
+      )
+    : 0;
+
+  const byDest: Record<string, { total: number; entregados: number }> = {};
+  for (const x of d) {
+    const dest = x.rutas?.destino ?? "Sin destino";
+    byDest[dest] ??= { total: 0, entregados: 0 };
+    byDest[dest].total++;
+    if (x.estado === "entregado") byDest[dest].entregados++;
+  }
+  const zonas = Object.entries(byDest)
+    .map(([destino, v]) => ({
+      destino,
+      total: v.total,
+      entregados: v.entregados,
+      pct: v.total ? Math.round((v.entregados / v.total) * 100) : 0,
+    }))
+    .sort((a, b) => b.total - a.total);
+
+  return {
+    kpis: { total, entregados, retrasados, aTiempo, totalViaticos, usoFlota },
+    zonas,
+  };
+}
