@@ -73,8 +73,8 @@ export function LoginForm() {
     <div className="w-full max-w-sm">
       <div className="flex flex-col items-center mb-8">
         <div className="flex items-center gap-2 text-2xl font-extrabold">
-          <Truck className="size-7 text-emerald-500" />
-          Eco<span className="text-emerald-500">Route</span>
+          <Truck className="size-7 text-orange-600" />
+          Eco<span className="text-orange-600">Route</span>
         </div>
         <p className="text-sm text-muted-foreground mt-1">
           Transportes Sur-Austral
@@ -108,7 +108,7 @@ export function LoginForm() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full bg-emerald-500 hover:bg-emerald-600"
+            className="w-full bg-orange-600 hover:bg-orange-700"
           >
             {loading && <Loader2 className="size-4 animate-spin" />}
             Ingresar
@@ -124,8 +124,8 @@ export function LoginForm() {
       ) : (
         <form onSubmit={handleMfa} className="space-y-4">
           <div className="flex flex-col items-center text-center gap-2 mb-2">
-            <div className="rounded-full bg-emerald-100 p-3">
-              <ShieldCheck className="size-6 text-emerald-600" />
+            <div className="rounded-full bg-orange-100 p-3">
+              <ShieldCheck className="size-6 text-orange-700" />
             </div>
             <p className="font-semibold">Verificación en dos pasos</p>
             <p className="text-sm text-muted-foreground">
@@ -144,7 +144,7 @@ export function LoginForm() {
           <Button
             type="submit"
             disabled={loading || code.length !== 6}
-            className="w-full bg-emerald-500 hover:bg-emerald-600"
+            className="w-full bg-orange-600 hover:bg-orange-700"
           >
             {loading && <Loader2 className="size-4 animate-spin" />}
             Verificar y entrar

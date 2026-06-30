@@ -8,8 +8,9 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Aplica a todas las rutas excepto archivos estáticos e imágenes.
+     * Aplica a todas las rutas excepto estáticos, imágenes y las rutas que se
+     * reenvían a Supabase (proxy): auth, rest, realtime, storage, functions.
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|auth/|rest/|realtime/|storage/|functions/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

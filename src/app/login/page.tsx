@@ -13,22 +13,24 @@ export default async function LoginPage() {
   return (
     <div className="flex min-h-screen">
       {/* Panel izquierdo (branding) */}
-      <div className="hidden lg:flex flex-col justify-between w-1/2 bg-gradient-to-br from-slate-950 to-emerald-950 text-white p-12">
-        <Link href="/" className="text-2xl font-extrabold">
-          Eco<span className="text-emerald-400">Route</span> Logistic AI
+      <div className="hidden w-1/2 flex-col justify-between bg-[#1c1d22] p-12 text-white lg:flex">
+        <Link href="/" className="flex items-center gap-2.5">
+          <span className="grid size-7 place-items-center rounded-sm bg-orange-600 font-mono text-[11px] font-bold text-white">
+            ER
+          </span>
+          <span className="font-semibold tracking-tight">EcoRoute</span>
         </Link>
         <div>
           <h2 className="text-3xl font-bold leading-tight">
-            Toda tu operación logística,<br />en un solo lugar.
+            Toda la operación logística en un solo lugar.
           </h2>
-          <p className="mt-4 text-slate-300 max-w-md">
-            Asignación automática de cargas, seguimiento GPS en tiempo real y
-            trazabilidad de extremo a extremo para la flota de Transportes
-            Sur-Austral.
+          <p className="mt-4 max-w-md text-white/55">
+            Asignación de cargas, seguimiento GPS y trazabilidad para la flota de
+            Transportes Sur-Austral.
           </p>
         </div>
-        <p className="text-xs text-slate-400">
-          Acceso protegido con autenticación de dos factores (RNF-03).
+        <p className="font-mono text-xs text-white/35">
+          Acceso con autenticación de dos factores.
         </p>
       </div>
 

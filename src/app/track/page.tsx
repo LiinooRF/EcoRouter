@@ -7,8 +7,8 @@ export default function TrackPage() {
     <div className="min-h-screen bg-muted/30">
       <header className="flex items-center justify-between bg-slate-950 px-6 py-4 text-white">
         <Link href="/" className="flex items-center gap-2 text-lg font-extrabold">
-          <Truck className="size-5 text-emerald-400" />
-          Eco<span className="text-emerald-400">Route</span> · Seguimiento
+          <Truck className="size-5 text-orange-400" />
+          Eco<span className="text-orange-400">Route</span> · Seguimiento
         </Link>
         <Link href="/login" className="text-sm text-slate-300 hover:text-white">
           Acceso interno →
