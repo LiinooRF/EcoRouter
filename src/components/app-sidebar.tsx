@@ -22,6 +22,8 @@ import {
   TriangleAlert,
   BarChart3,
   Truck,
+  Boxes,
+  ScrollText,
   ShieldCheck,
   LogOut,
 } from "lucide-react";
@@ -33,8 +35,10 @@ const navOperacion = [
   { href: "/app/mapa", label: "Mapa GPS", icon: Map, roles: ["admin", "soporte"] },
   { href: "/app/asignar", label: "Asignar cargas", icon: PackagePlus, roles: ["admin"] },
   { href: "/app/despachos", label: "Despachos", icon: ClipboardList, roles: ["admin", "soporte"] },
+  { href: "/app/flota", label: "Flota", icon: Boxes, roles: ["admin", "soporte"] },
   { href: "/app/alertas", label: "Alertas", icon: TriangleAlert, roles: ["admin", "soporte"] },
   { href: "/app/reportes", label: "Reportes", icon: BarChart3, roles: ["admin", "soporte"] },
+  { href: "/app/bitacora", label: "Bitácora", icon: ScrollText, roles: ["admin", "soporte"] },
 ];
 
 const navConductor = [
