@@ -1,5 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
-import type { Profile } from "@/lib/types";
+import type {
+  Profile,
+  Ruta,
+  Conductor,
+  Camion,
+  Despacho,
+} from "@/lib/types";
+
+export { VIATICO, calcViatico } from "./viatico";
 
 /** Perfil del usuario autenticado (incluye su rol). */
 export async function getProfile(): Promise<Profile | null> {
@@ -138,4 +146,35 @@ export async function getFleetPositions(): Promise<FleetPoint[]> {
       } as FleetPoint;
     })
     .filter((x): x is FleetPoint => x !== null);
+}
+
+/** Datos para el formulario de asignación (rutas, conductores y camiones). */
+export async function getAsignacionData() {
+  const supabase = await createClient();
+  const [rutas, conductores, camiones] = await Promise.all([
+    supabase.from("rutas").select("*").order("distancia_km", { ascending: false }),
+    supabase.from("conductores").select("*").order("disponible", { ascending: false }),
+    supabase.from("camiones").select("*").order("patente"),
+  ]);
+  return {
+    rutas: (rutas.data ?? []) as Ruta[],
+    conductores: (conductores.data ?? []) as Conductor[],
+    camiones: (camiones.data ?? []) as Camion[],
+  };
+}
+
+/** Historial completo de despachos (RF-09). */
+export async function getDespachos() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("despachos")
+    .select(
+      "id,numero_guia,cliente_nombre,estado,tipo_carga,fecha_creacion,fecha_estimada,rutas(origen,destino),conductores(nombre),viaticos(monto_total)",
+    )
+    .order("fecha_creacion", { ascending: false });
+  return (data ?? []) as unknown as (Despacho & {
+    rutas: { origen: string; destino: string } | null;
+    conductores: { nombre: string } | null;
+    viaticos: { monto_total: number } | null;
+  })[];
 }
