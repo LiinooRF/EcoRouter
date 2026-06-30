@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Salida standalone: genera un server.js mínimo para contenedores (Docker/Dokploy)
+  output: "standalone",
 };
 
 export default nextConfig;
