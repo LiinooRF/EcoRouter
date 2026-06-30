@@ -39,7 +39,7 @@ export default async function DashboardPage() {
       label: "Camiones activos",
       value: `${kpis.camionesActivos}/${kpis.camionesTotal}`,
       icon: Truck,
-      color: "text-emerald-600 bg-emerald-50",
+      color: "text-orange-700 bg-orange-50",
       foot: `${kpis.conductoresDisponibles} conductores disponibles`,
       trend: "up" as const,
     },
@@ -94,7 +94,7 @@ export default async function DashboardPage() {
               </div>
               <p className="mt-3 flex items-center gap-1 text-xs text-muted-foreground">
                 {s.trend === "up" ? (
-                  <TrendingUp className="size-3.5 text-emerald-500" />
+                  <TrendingUp className="size-3.5 text-orange-600" />
                 ) : (
                   <TrendingDown className="size-3.5 text-red-500" />
                 )}
@@ -169,9 +169,9 @@ export default async function DashboardPage() {
       </div>
 
       {/* Nota de mejora */}
-      <Card className="border-emerald-200 bg-emerald-50/50">
+      <Card className="border-orange-200 bg-orange-50/50">
         <CardContent className="flex items-center gap-3 py-4 text-sm">
-          <TrendingDown className="size-5 text-emerald-600" />
+          <TrendingDown className="size-5 text-orange-700" />
           <span>
             La digitalización redujo los retrasos de entrega del{" "}
             <b>25% (gestión manual)</b> a un objetivo operativo del <b>7%</b>,

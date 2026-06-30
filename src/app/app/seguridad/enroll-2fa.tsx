@@ -92,7 +92,7 @@ export function Enroll2FA() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           {enrolled ? (
-            <ShieldCheck className="size-5 text-emerald-600" />
+            <ShieldCheck className="size-5 text-orange-700" />
           ) : (
             <ShieldOff className="size-5 text-amber-600" />
           )}
@@ -106,7 +106,7 @@ export function Enroll2FA() {
       <CardContent className="space-y-4">
         {enrolled ? (
           <>
-            <div className="rounded-lg bg-emerald-50 border border-emerald-200 p-4 text-sm text-emerald-800">
+            <div className="rounded-lg bg-orange-50 border border-orange-200 p-4 text-sm text-orange-900">
               ✓ El 2FA está <b>activado</b> en tu cuenta. En el próximo inicio de
               sesión se te pedirá el código de tu app de autenticación.
             </div>
@@ -136,7 +136,7 @@ export function Enroll2FA() {
                 placeholder="000000"
                 className="text-center tracking-[0.4em] font-mono"
               />
-              <Button onClick={verify} disabled={verifying || code.length !== 6} className="bg-emerald-500 hover:bg-emerald-600">
+              <Button onClick={verify} disabled={verifying || code.length !== 6} className="bg-orange-600 hover:bg-orange-700">
                 {verifying && <Loader2 className="size-4 animate-spin" />}
                 Verificar
               </Button>
@@ -148,7 +148,7 @@ export function Enroll2FA() {
               Aún no tienes 2FA activado. Actívalo para reforzar la seguridad de
               tu cuenta.
             </p>
-            <Button onClick={startEnroll} className="bg-emerald-500 hover:bg-emerald-600">
+            <Button onClick={startEnroll} className="bg-orange-600 hover:bg-orange-700">
               <QrCode className="size-4" /> Activar 2FA
             </Button>
           </>

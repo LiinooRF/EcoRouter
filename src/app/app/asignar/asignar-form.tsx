@@ -117,7 +117,7 @@ export function AsignarForm({
 
           <div className="space-y-2">
             <Label className="flex items-center gap-1">
-              Conductor <Sparkles className="size-3 text-emerald-500" />
+              Conductor <Sparkles className="size-3 text-orange-600" />
             </Label>
             <select
               className={selectClass}
@@ -154,9 +154,9 @@ export function AsignarForm({
 
       {/* Panel de viáticos + acción */}
       <div className="space-y-4">
-        <Card className="border-emerald-200 bg-emerald-50/50">
+        <Card className="border-orange-200 bg-orange-50/50">
           <CardContent className="pt-2">
-            <p className="flex items-center gap-2 font-semibold text-emerald-800">
+            <p className="flex items-center gap-2 font-semibold text-orange-900">
               <Fuel className="size-4" /> Viáticos estimados (RF-06)
             </p>
             {viatico ? (
@@ -173,7 +173,7 @@ export function AsignarForm({
                   <span className="text-muted-foreground">Peajes</span>
                   <span>{clp(viatico.peajes)}</span>
                 </div>
-                <div className="mt-2 flex justify-between border-t border-dashed border-emerald-300 pt-2 text-base font-bold text-emerald-700">
+                <div className="mt-2 flex justify-between border-t border-dashed border-orange-300 pt-2 text-base font-bold text-orange-800">
                   <span>Total</span>
                   <span>{clp(viatico.total)}</span>
                 </div>
@@ -189,14 +189,14 @@ export function AsignarForm({
         <Button
           type="submit"
           disabled={loading}
-          className="w-full bg-emerald-500 hover:bg-emerald-600"
+          className="w-full bg-orange-600 hover:bg-orange-700"
         >
           {loading && <Loader2 className="size-4 animate-spin" />}
           Confirmar asignación
         </Button>
 
         {ultimaGuia && (
-          <div className="flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800">
+          <div className="flex items-center gap-2 rounded-lg border border-orange-200 bg-orange-50 p-3 text-sm text-orange-900">
             <CheckCircle2 className="size-4" />
             Última asignación: <b>{ultimaGuia}</b>
           </div>
