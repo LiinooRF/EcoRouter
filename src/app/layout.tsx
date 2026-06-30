@@ -19,6 +19,10 @@ export const metadata: Metadata = {
     "Plataforma centralizada de gestión logística: asignación de cargas, GPS en tiempo real, trazabilidad y control operativo.",
 };
 
+// Render dinámico para leer la configuración pública (Supabase) en runtime,
+// de modo que la imagen Docker no dependa de variables en tiempo de build.
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,6 +34,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.__ENV=${JSON.stringify({
+              SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
+              SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "",
+            })}`,
+          }}
+        />
         {children}
         <Toaster richColors position="top-center" />
       </body>
