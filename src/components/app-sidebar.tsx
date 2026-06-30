@@ -99,9 +99,9 @@ export function AppSidebar({ profile }: { profile: Profile }) {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center gap-2 px-2 py-1.5 font-extrabold text-lg">
-          <Truck className="size-6 text-emerald-500" />
+          <Truck className="size-6 text-orange-600" />
           <span>
-            Eco<span className="text-emerald-500">Route</span>
+            Eco<span className="text-orange-600">Route</span>
           </span>
         </div>
       </SidebarHeader>
@@ -114,7 +114,7 @@ export function AppSidebar({ profile }: { profile: Profile }) {
 
       <SidebarFooter>
         <div className="flex items-center gap-2 rounded-lg border bg-card p-2">
-          <div className="flex size-9 items-center justify-center rounded-full bg-emerald-500 text-white text-sm font-bold">
+          <div className="flex size-9 items-center justify-center rounded-full bg-orange-600 text-white text-sm font-bold">
             {initials}
           </div>
           <div className="flex-1 min-w-0">

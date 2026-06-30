@@ -1,99 +1,98 @@
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-  Truck,
-  MapPin,
-  PackageSearch,
-  ShieldCheck,
-  CloudSnow,
-  BarChart3,
-  ArrowRight,
-} from "lucide-react";
 
-const features = [
-  { icon: Truck, title: "Asignación automática", desc: "Cargas a conductores según licencia y disponibilidad (RF-01)." },
-  { icon: MapPin, title: "GPS en tiempo real", desc: "Ubicación de toda la flota sobre mapa interactivo (RF-03)." },
-  { icon: PackageSearch, title: "Portal del cliente", desc: "Seguimiento del pedido por número de guía (RF-04)." },
-  { icon: CloudSnow, title: "Alertas climáticas", desc: "Avisos de riesgo en ruta priorizados por impacto (RF-07/08)." },
-  { icon: BarChart3, title: "Reportes operativos", desc: "Desempeño logístico y cumplimiento por zona (RF-10)." },
-  { icon: ShieldCheck, title: "Seguridad 2FA", desc: "Acceso protegido con autenticación de dos factores (RNF-03)." },
+const cifras = [
+  { k: "150", l: "camiones en operación" },
+  { k: "3.090 km", l: "Santiago → Punta Arenas" },
+  { k: "25% → 7%", l: "atrasos tras digitalizar" },
+  { k: "10.000", l: "despachos por mes" },
 ];
 
-export default function LandingPage() {
+const modulos: [string, string, string][] = [
+  ["01", "Asignación de cargas", "Asigna conductor y camión según licencia, ruta y disponibilidad. Calcula los viáticos al instante."],
+  ["02", "Seguimiento GPS", "Toda la flota en un mapa, con su estado y velocidad en ruta."],
+  ["03", "Portal del cliente", "El cliente revisa el estado de su pedido con el número de guía, sin tener que llamar."],
+  ["04", "Alertas en ruta", "Clima, atrasos y detenciones, ordenadas por gravedad."],
+  ["05", "Reportes", "Cumplimiento por destino y uso de la flota, exportable a Excel."],
+  ["06", "Acceso seguro", "Inicio de sesión con doble factor y permisos por perfil."],
+];
+
+export default function Landing() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-emerald-950 text-white">
-      {/* Nav */}
-      <header className="flex items-center justify-between px-6 py-5 max-w-6xl mx-auto w-full">
-        <div className="flex items-center gap-2 font-bold text-xl">
-          <Truck className="size-6 text-emerald-400" />
-          Eco<span className="text-emerald-400">Route</span>
+    <div className="min-h-screen bg-[#faf8f4] text-[#1c1d22]">
+      <div className="h-1 w-full bg-orange-600" />
+
+      <header className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
+        <div className="flex items-center gap-2.5">
+          <span className="grid size-7 place-items-center rounded-sm bg-[#1c1d22] font-mono text-[11px] font-bold text-orange-500">
+            ER
+          </span>
+          <span className="font-semibold tracking-tight">EcoRoute</span>
         </div>
-        <div className="flex gap-3">
-          <Link
-            href="/track"
-            className={cn(buttonVariants({ variant: "ghost" }), "text-white hover:bg-white/10 hover:text-white")}
-          >
+        <nav className="flex items-center gap-1 text-sm">
+          <Link href="/track" className="px-3 py-2 text-[#1c1d22]/70 hover:text-[#1c1d22]">
             Rastrear pedido
           </Link>
-          <Link
-            href="/login"
-            className={cn(buttonVariants(), "bg-emerald-500 hover:bg-emerald-600 text-white")}
-          >
+          <Link href="/login" className={cn(buttonVariants(), "rounded-sm bg-orange-600 text-white hover:bg-orange-700")}>
             Acceder
           </Link>
-        </div>
+        </nav>
       </header>
 
-      {/* Hero */}
-      <section className="flex-1 flex flex-col items-center justify-center text-center px-6 py-16 max-w-3xl mx-auto">
-        <span className="inline-flex items-center gap-2 rounded-full bg-emerald-500/15 text-emerald-300 px-4 py-1.5 text-sm font-medium mb-6 border border-emerald-500/30">
-          <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-          Transportes Sur-Austral · Santiago ⇄ Punta Arenas
-        </span>
-        <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
-          Logística inteligente,{" "}
-          <span className="text-emerald-400">de extremo a extremo</span>
-        </h1>
-        <p className="mt-6 text-lg text-slate-300 max-w-2xl">
-          EcoRoute Logistic AI digitaliza la operación de una flota de 150
-          camiones: asignación automática, GPS en tiempo real, trazabilidad para
-          el cliente y apoyo a decisiones. Adiós a las planillas y las llamadas.
-        </p>
-        <div className="mt-9 flex flex-col sm:flex-row gap-4">
-          <Link
-            href="/login"
-            className={cn(buttonVariants({ size: "lg" }), "bg-emerald-500 hover:bg-emerald-600 text-white text-base")}
-          >
-            Ingresar al panel <ArrowRight className="size-4" />
-          </Link>
-          <Link
-            href="/track"
-            className={cn(buttonVariants({ size: "lg", variant: "outline" }), "border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white text-base")}
-          >
-            <PackageSearch className="size-4" /> Soy cliente
-          </Link>
-        </div>
-      </section>
+      <main className="mx-auto max-w-5xl px-5">
+        <section className="py-14 md:py-20">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-orange-700">
+            Transportes Sur-Austral
+          </p>
+          <h1 className="mt-3 max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
+            Coordinar 150 camiones sin planillas ni llamadas.
+          </h1>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-[#1c1d22]/70">
+            EcoRoute centraliza la operación logística entre Santiago y Punta
+            Arenas. Asigna cargas, sigue la flota por GPS y le entrega al cliente
+            el estado de su pedido en línea.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link href="/login" className={cn(buttonVariants({ size: "lg" }), "rounded-sm bg-orange-600 text-white hover:bg-orange-700")}>
+              Entrar al panel
+            </Link>
+            <Link href="/track" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "rounded-sm border-[#1c1d22]/20 text-[#1c1d22] hover:bg-[#1c1d22]/5")}>
+              Soy cliente
+            </Link>
+          </div>
+        </section>
 
-      {/* Features */}
-      <section className="px-6 pb-20 max-w-6xl mx-auto w-full">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur transition hover:bg-white/10"
-            >
-              <f.icon className="size-7 text-emerald-400 mb-3" />
-              <h3 className="font-semibold text-lg">{f.title}</h3>
-              <p className="text-sm text-slate-300 mt-1">{f.desc}</p>
+        <section className="grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-[#1c1d22]/10 bg-[#1c1d22]/10 md:grid-cols-4">
+          {cifras.map((s) => (
+            <div key={s.l} className="bg-[#faf8f4] p-5">
+              <div className="font-mono text-2xl font-bold">{s.k}</div>
+              <div className="mt-1 text-xs text-[#1c1d22]/55">{s.l}</div>
             </div>
           ))}
-        </div>
-      </section>
+        </section>
 
-      <footer className="text-center text-xs text-slate-400 py-6 border-t border-white/10">
-        EcoRoute Logistic AI · Proyecto Ingeniería de Software RQY1102 · 2026
+        <section className="py-16">
+          <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-[#1c1d22]/45">
+            Módulos
+          </h2>
+          <div className="mt-6 border-y border-[#1c1d22]/10 divide-y divide-[#1c1d22]/10">
+            {modulos.map((m) => (
+              <div key={m[0]} className="grid grid-cols-12 gap-3 py-5">
+                <div className="col-span-2 font-mono text-sm text-orange-700 md:col-span-1">{m[0]}</div>
+                <div className="col-span-10 font-semibold md:col-span-3">{m[1]}</div>
+                <div className="col-span-12 text-sm leading-relaxed text-[#1c1d22]/65 md:col-span-8">{m[2]}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-[#1c1d22]/10">
+        <div className="mx-auto flex max-w-5xl flex-col gap-1 px-5 py-8 text-xs text-[#1c1d22]/50">
+          <span className="font-semibold text-[#1c1d22]/75">EcoRoute Logistic AI</span>
+          <span>Proyecto Ingeniería de Software · RQY1102 · 2026</span>
+        </div>
       </footer>
     </div>
   );

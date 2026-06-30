@@ -71,7 +71,7 @@ export function ConductorTasks({ tareas }: { tareas: Tarea[] }) {
     return (
       <Card>
         <CardContent className="py-10 text-center text-muted-foreground">
-          <PackageCheck className="mx-auto mb-2 size-10 text-emerald-500" />
+          <PackageCheck className="mx-auto mb-2 size-10 text-orange-600" />
           No tienes asignaciones activas.
         </CardContent>
       </Card>
@@ -86,7 +86,7 @@ export function ConductorTasks({ tareas }: { tareas: Tarea[] }) {
           <Card key={t.id}>
             <CardContent className="space-y-3 pt-2">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-emerald-700">{t.numero_guia}</span>
+                <span className="font-bold text-orange-800">{t.numero_guia}</span>
                 <EstadoBadge estado={t.estado as EstadoDespacho} />
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -109,7 +109,7 @@ export function ConductorTasks({ tareas }: { tareas: Tarea[] }) {
                 <Button
                   onClick={() => avanzar(t)}
                   disabled={busy === t.id}
-                  className="h-12 w-full bg-emerald-500 text-base hover:bg-emerald-600"
+                  className="h-12 w-full bg-orange-600 text-base hover:bg-orange-700"
                 >
                   {busy === t.id ? (
                     <Loader2 className="size-4 animate-spin" />

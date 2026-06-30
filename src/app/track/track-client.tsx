@@ -68,7 +68,7 @@ export function TrackClient() {
           placeholder="Ej: SA-2026-10481"
           className="text-base"
         />
-        <Button type="submit" disabled={loading} className="bg-emerald-500 hover:bg-emerald-600">
+        <Button type="submit" disabled={loading} className="bg-orange-600 hover:bg-orange-700">
           {loading ? <Loader2 className="size-4 animate-spin" /> : <Search className="size-4" />}
           Buscar
         </Button>
@@ -98,7 +98,7 @@ export function TrackClient() {
                   res.estado === "retrasado"
                     ? "bg-red-100 text-red-700"
                     : res.estado === "entregado"
-                      ? "bg-emerald-100 text-emerald-700"
+                      ? "bg-orange-100 text-orange-800"
                       : "bg-blue-100 text-blue-700",
                 )}
               >
@@ -114,20 +114,20 @@ export function TrackClient() {
                 return (
                   <div key={p.key} className="flex flex-1 flex-col items-center text-center">
                     <div className="flex w-full items-center">
-                      <div className={cn("h-0.5 flex-1", i === 0 ? "opacity-0" : done || active ? "bg-emerald-500" : "bg-muted")} />
+                      <div className={cn("h-0.5 flex-1", i === 0 ? "opacity-0" : done || active ? "bg-orange-600" : "bg-muted")} />
                       <div
                         className={cn(
                           "flex size-8 items-center justify-center rounded-full border-2 text-xs font-bold",
                           done
-                            ? "border-emerald-500 bg-emerald-500 text-white"
+                            ? "border-orange-600 bg-orange-600 text-white"
                             : active
-                              ? "border-emerald-500 text-emerald-600"
+                              ? "border-orange-600 text-orange-700"
                               : "border-muted text-muted-foreground",
                         )}
                       >
                         {done ? <Check className="size-4" /> : i + 1}
                       </div>
-                      <div className={cn("h-0.5 flex-1", i === PASOS.length - 1 ? "opacity-0" : done ? "bg-emerald-500" : "bg-muted")} />
+                      <div className={cn("h-0.5 flex-1", i === PASOS.length - 1 ? "opacity-0" : done ? "bg-orange-600" : "bg-muted")} />
                     </div>
                     <span className={cn("mt-1.5 text-xs", done || active ? "font-medium" : "text-muted-foreground")}>
                       {p.label}
