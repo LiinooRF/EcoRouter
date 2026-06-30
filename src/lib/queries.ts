@@ -202,6 +202,28 @@ export async function getAlertas() {
   }>;
 }
 
+/** Despachos activos (no entregados) para la vista del conductor. */
+export async function getDespachosActivos() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("despachos")
+    .select(
+      "id,numero_guia,cliente_nombre,estado,tipo_carga,fecha_estimada,rutas(origen,destino,distancia_km),camiones(patente)",
+    )
+    .neq("estado", "entregado")
+    .order("fecha_creacion", { ascending: false });
+  return (data ?? []) as unknown as Array<{
+    id: number;
+    numero_guia: string;
+    cliente_nombre: string | null;
+    estado: string;
+    tipo_carga: string;
+    fecha_estimada: string | null;
+    rutas: { origen: string; destino: string; distancia_km: number } | null;
+    camiones: { patente: string } | null;
+  }>;
+}
+
 /** Métricas de desempeño logístico (RF-10). */
 export async function getReportes() {
   const supabase = await createClient();
