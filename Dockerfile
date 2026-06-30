@@ -2,7 +2,8 @@
 FROM node:22-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci
+# --ignore-scripts evita postinstall innecesarios en build (p.ej. binario de la CLI de supabase)
+RUN npm ci --ignore-scripts
 
 # ---- Build ----
 FROM node:22-alpine AS builder
@@ -10,8 +11,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-# El cliente lee la config pública en runtime (window.__ENV), por lo que NO se
-# requieren build-args para NEXT_PUBLIC_*. El build genera la salida standalone.
 RUN npm run build
 
 # ---- Runtime ----
