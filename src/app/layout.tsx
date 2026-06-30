@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
-// Tipografía moderna propia. Se conservan los nombres de variable
-// para no romper el tema de Tailwind.
-const geistSans = Space_Grotesk({
-  variable: "--font-geist-sans",
+// Cuerpo: Plus Jakarta Sans (moderna, limpia). El nombre de variable DEBE ser
+// --font-sans porque es lo que referencia el @theme de Tailwind.
+const fontSans = Plus_Jakarta_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const geistMono = JetBrains_Mono({
+// Títulos: Bricolage Grotesque (display, con carácter).
+const fontHeading = Bricolage_Grotesque({
+  variable: "--font-heading-display",
+  subsets: ["latin"],
+});
+
+const fontMono = JetBrains_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
@@ -33,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${fontSans.variable} ${fontHeading.variable} ${fontMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <script

@@ -39,7 +39,7 @@ export default function Landing() {
             <span className="grid size-8 place-items-center rounded-md bg-orange-600 font-mono text-xs font-bold">
               ER
             </span>
-            <span className="text-lg font-semibold tracking-tight">EcoRoute</span>
+            <span className="font-heading text-lg font-semibold tracking-tight">EcoRoute</span>
           </div>
           <nav className="flex items-center gap-1.5 text-sm">
             <Link href="/track" className="rounded-md px-3 py-2 text-white/65 transition hover:bg-white/5 hover:text-white">
@@ -57,7 +57,7 @@ export default function Landing() {
             <p className="font-mono text-xs uppercase tracking-[0.25em] text-orange-400">
               Transportes Sur-Austral
             </p>
-            <h1 className="mt-4 text-[2.6rem] font-bold leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
+            <h1 className="mt-4 font-heading text-[2.6rem] font-bold leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
               Mueve la flota,
               <br />
               <span className="text-orange-500">no las planillas.</span>
@@ -108,7 +108,7 @@ export default function Landing() {
       {/* ===== MÓDULOS ===== */}
       <section className="mx-auto max-w-6xl px-5 py-16 md:py-24">
         <div className="flex items-end justify-between gap-4">
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          <h2 className="font-heading text-2xl font-bold tracking-tight sm:text-3xl">
             Lo que hace por dentro
           </h2>
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#15161a]/40">
@@ -122,7 +122,7 @@ export default function Landing() {
                 <span className="font-mono text-sm font-semibold text-orange-600">{m[0]}</span>
                 <span className="h-0.5 w-8 bg-[#15161a]/15 transition group-hover:w-12 group-hover:bg-orange-500" />
               </div>
-              <h3 className="mt-4 text-lg font-semibold tracking-tight">{m[1]}</h3>
+              <h3 className="mt-4 font-heading text-lg font-semibold tracking-tight">{m[1]}</h3>
               <p className="mt-2 text-sm leading-relaxed text-[#15161a]/60">{m[2]}</p>
             </div>
           ))}
@@ -133,7 +133,7 @@ export default function Landing() {
       <section className="mx-auto max-w-6xl px-5 pb-20">
         <div className="flex flex-col items-start justify-between gap-6 rounded-xl bg-[#131418] p-8 text-white sm:flex-row sm:items-center md:p-12">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">¿Probamos?</h2>
+            <h2 className="font-heading text-2xl font-bold tracking-tight sm:text-3xl">¿Probamos?</h2>
             <p className="mt-2 text-white/60">Entra con la cuenta demo o rastrea un pedido de ejemplo.</p>
           </div>
           <div className="flex gap-3">
