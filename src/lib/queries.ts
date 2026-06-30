@@ -78,3 +78,64 @@ export async function getDashboardData() {
     },
   };
 }
+
+export type FleetPoint = {
+  camionId: number;
+  patente: string;
+  modelo: string | null;
+  lat: number;
+  lng: number;
+  velocidad: number;
+  estado: string | null;
+  numeroGuia: string | null;
+  conductor: string | null;
+  destino: string | null;
+};
+
+/** Posición GPS más reciente de cada camión, con su despacho activo (RF-03). */
+export async function getFleetPositions(): Promise<FleetPoint[]> {
+  const supabase = await createClient();
+  const [camiones, posiciones, despachos] = await Promise.all([
+    supabase.from("camiones").select("*"),
+    supabase
+      .from("posiciones_gps")
+      .select("*")
+      .order("registrado_at", { ascending: false }),
+    supabase
+      .from("despachos")
+      .select(
+        "id,numero_guia,estado,camion_id,rutas(destino),conductores(nombre)",
+      )
+      .neq("estado", "entregado"),
+  ]);
+
+  const cam = camiones.data ?? [];
+  const pos = posiciones.data ?? [];
+  const desp = (despachos.data ?? []) as unknown as Array<{
+    camion_id: number | null;
+    numero_guia: string;
+    estado: string;
+    rutas: { destino: string } | null;
+    conductores: { nombre: string } | null;
+  }>;
+
+  return cam
+    .map((c) => {
+      const p = pos.find((x) => x.camion_id === c.id);
+      const d = desp.find((x) => x.camion_id === c.id);
+      if (!p) return null;
+      return {
+        camionId: c.id,
+        patente: c.patente,
+        modelo: c.modelo,
+        lat: p.lat,
+        lng: p.lng,
+        velocidad: p.velocidad,
+        estado: d?.estado ?? null,
+        numeroGuia: d?.numero_guia ?? null,
+        conductor: d?.conductores?.nombre ?? null,
+        destino: d?.rutas?.destino ?? null,
+      } as FleetPoint;
+    })
+    .filter((x): x is FleetPoint => x !== null);
+}
